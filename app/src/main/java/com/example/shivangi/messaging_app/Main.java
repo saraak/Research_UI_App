@@ -38,13 +38,13 @@ public class Main extends AppCompatActivity {
                 if(clickcount%2==1)
                 {
                     start1 = System.currentTimeMillis();
-                    image.setImageResource(R.drawable.unnamed);
+                    image.setImageResource(R.drawable.img2);
                     //Toast.makeText(getApplicationContext(),"Button clicked first time!", Toast.LENGTH_LONG).show();
                 }
                 else if(clickcount%2==0)
                 {
                     end1 = System.currentTimeMillis();
-                    image.setImageResource(R.drawable.try31);
+                    image.setImageResource(R.drawable.img3);
                     //Toast.makeText(getApplicationContext(),"Button clicked count is"+clickcount, Toast.LENGTH_LONG).show();
 
                     long time = end1 - start1;
