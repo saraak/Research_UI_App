@@ -1,71 +1,55 @@
 package com.example.shivangi.messaging_app;
 
-
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class Main extends AppCompatActivity {
-    ImageView image;
-    Button button;
-    int clickcount;
-    long start1;
-    long end1;
 
+    private long startMilli;
+    private long finishMilli;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button b = (Button) findViewById(R.id.button);
-        b.setOnClickListener(new View.OnClickListener() {
+        Button button1 = findViewById(R.id.button);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent (Main.this,Pop.class));
+            public void onClick(View view) {
+                startMilli = System.currentTimeMillis();
+
+                startActivityForResult(
+                        new Intent(Main.this, Pop.class), 0);
             }
-
         });
-        addListenerOnButton();
-
     }
 
-    public void addListenerOnButton() {
-
-        image = findViewById(R.id.imageView1);
-
-        button = findViewById(R.id.btnChangeImage);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                clickcount=clickcount+1;
-                if(clickcount%2==1)
-                {
-                    start1 = System.currentTimeMillis();
-                    image.setImageResource(R.drawable.img2);
-                    //Toast.makeText(getApplicationContext(),"Button clicked first time!", Toast.LENGTH_LONG).show();
-                }
-                else if(clickcount%2==0)
-                {
-                    end1 = System.currentTimeMillis();
-                    image.setImageResource(R.drawable.img3);
-                    //Toast.makeText(getApplicationContext(),"Button clicked count is"+clickcount, Toast.LENGTH_LONG).show();
-
-                    long time = end1 - start1;
-                    Log.d("TAG", Long.toString(time));
-                    Toast.makeText(getApplicationContext(),"Time from one click to next: "+time, Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-        });
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        finishMilli = System.currentTimeMillis();
+        long time = finishMilli - startMilli;
+        Log.d("TAG", Long.toString(time));
+        Toast.makeText(getApplicationContext(),"Time from one click to next: "+time, Toast.LENGTH_LONG).show();
+        File logFile = new File(getExternalCacheDir(), "time_log.txt");
+        String text = data.getStringExtra("result");
+        try {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
+            out.println(Long.toString(time) + ",\""+text+"\"" );
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
