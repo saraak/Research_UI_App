@@ -58,22 +58,20 @@ public class Main extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 200) {
-            if (resultCode == RESULT_OK && data != null && data.hasExtra("result")) {
-                finishMilli = System.currentTimeMillis();
-                long time = finishMilli - startMilli;
-                Log.d("TAG", Long.toString(time));
-                Toast.makeText(getApplicationContext(), "Time from one click to next: " + time, Toast.LENGTH_LONG).show();
-                File logFile = new File(getExternalCacheDir(), "time_log.txt");
-                String text = data.getStringExtra("result");
-                try {
-                    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
-                    out.println(Long.toString(time) + ",\"" + text + "\"");
-                    out.flush();
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (resultCode == RESULT_OK && data != null && data.hasExtra("result")) {
+            finishMilli = System.currentTimeMillis();
+            long time = finishMilli - startMilli;
+            Log.d("TAG", Long.toString(time));
+            Toast.makeText(getApplicationContext(), "Time from one click to next: " + time, Toast.LENGTH_LONG).show();
+            File logFile = new File(getExternalCacheDir(), "time_log.txt");
+            String text = data.getStringExtra("result");
+            try {
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
+                out.println(Long.toString(time) + ",\"" + text + "\"");
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

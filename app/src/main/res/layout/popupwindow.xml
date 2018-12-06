@@ -28,9 +28,16 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="137dp"
-        android:layout_marginTop="78dp"
+        android:layout_below="@id/editText2"
+        android:layout_centerHorizontal="true"
         android:text="Reply" />
+
+    <Button
+        android:id="@+id/button_speak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button2"
+        android:layout_centerHorizontal="true"
+        android:text="voice"
+        />
 </RelativeLayout>

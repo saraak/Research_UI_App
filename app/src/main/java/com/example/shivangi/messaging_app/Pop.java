@@ -1,5 +1,6 @@
 package com.example.shivangi.messaging_app;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
@@ -17,7 +18,7 @@ import java.util.Locale;
 
 class Pop extends AppCompatActivity {
 
-    private Button button;
+    private Button voice, reply;
     private TextView textView;
 
     @Override
@@ -33,16 +34,27 @@ class Pop extends AppCompatActivity {
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.8), (int)(height*.8));
-        textView = (TextView) this.findViewById(R.id.editText2);
-        button = (Button) this.findViewById(R.id.button2);
+        textView = findViewById(R.id.editText2);
+        voice = findViewById(R.id.button_speak);
+        reply = findViewById(R.id.button2);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
                 startActivityForResult(intent,200);
+            }
+        });
+
+        reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", textView.getText());
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
         });
     }
