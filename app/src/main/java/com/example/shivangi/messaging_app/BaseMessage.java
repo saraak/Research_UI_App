@@ -1,4 +1,4 @@
-package com.saraakhtar.myapplication;
+package com.example.shivangi.messaging_app;
 
 class BaseMessage {
 
