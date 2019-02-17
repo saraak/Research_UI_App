@@ -51,8 +51,6 @@ public class MessageListActivity extends AppCompatActivity {
                         MessageListActivity.this.getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
 
-                mMessageText.setText("");
-
                 String messageText = mMessageText.getText().toString();
                 BaseMessage message = new BaseMessage("Me", "shivangi",
                         messageText,dateFormat.format(new Date()));

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 
 
 public class Main extends AppCompatActivity {
@@ -65,11 +66,12 @@ public class Main extends AppCompatActivity {
             long time = finishMilli - startMilli;
             Log.d("TAG", Long.toString(time));
             Toast.makeText(getApplicationContext(), "Time from one click to next: " + time, Toast.LENGTH_LONG).show();
-            File logFile = new File(getExternalCacheDir(), "time_log.txt");
+            File logFile = new File(getExternalCacheDir(), "RiSA2S_log.txt");
             String text = data.getStringExtra("result");
             try {
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
-                out.println(Long.toString(time) + ",\"" + text + "\"");
+                out.print("[" + new Timestamp(System.currentTimeMillis()) + "] Resp Time: ");
+                out.println(Long.toString(time) + " ms, Text: \"" + text + "\"");
                 out.flush();
                 out.close();
             } catch (IOException e) {
