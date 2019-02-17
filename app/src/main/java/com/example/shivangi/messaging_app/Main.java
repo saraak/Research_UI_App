@@ -20,15 +20,28 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
+import java.net.*;
 
 
 public class Main extends AppCompatActivity {
 
     private long startMilli;
     private long finishMilli;
+    private DatagramSocket socket;
+    private byte[] buf = new byte[256];
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
+//        try {
+//            socket = new DatagramSocket(4445); //CHANGE PORT
+//        } catch (SocketException e) { }
+//        DatagramPacket packet = new DatagramPacket(buf, buf.length);
+//        try {
+//            socket.receive(packet);
+//        } catch (IOException e) { }
+//        String received = new String(packet.getData(), 0, packet.getLength()); //resulting string
+//        Toast.makeText(getApplicationContext(), received , Toast.LENGTH_LONG).show();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
